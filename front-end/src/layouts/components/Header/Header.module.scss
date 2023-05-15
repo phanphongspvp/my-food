@@ -1,0 +1,124 @@
+.wrapper {
+    height: var(--header-layout-height);
+    background-color: #fff;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 10;
+    margin-bottom: 70px;
+}
+
+.inner {
+    margin: 0 auto;
+    width: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.logo {
+    width: 100px;
+    height: var(--header-layout-height);
+    object-fit: cover;
+}
+
+.header-main {
+    display: flex;
+    align-items: center;    
+    width: 100%;
+    margin-left: 122px;
+}
+
+.address {
+    width: 100px;
+    height: 41px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    color: #252525;    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 48px;
+    font-family: var(--font-family);
+}
+
+.icon-down{
+    margin-top: -4px;
+    margin-left: 12px;
+    font-size: 10px;
+    color: #acacac;
+}
+
+.navbar-list{
+    display: flex;
+    list-style-type: none;
+    margin-left: 2px;
+}
+
+.navbar-item {
+    margin-top: 14px;
+    padding: 12px 12px 22px;
+}
+
+.navbar-item.active {
+    border-bottom: 4px solid #ee4d2d;
+
+    .navbar-btn {
+        font-weight: 700;
+        color: #ee4d2d;
+        font-family: var(--font-family);
+    }
+}
+
+.navbar-btn {
+    color: #252525;
+    border: none;
+    outline: none;
+    background-color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    
+    &:hover {
+        color: #ee4d2d;
+    }
+}
+
+.control {
+    display: flex;
+    align-items: center;
+}
+
+.btn-search {
+    outline: none;
+    border: none;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.btn-login {
+    width: 98px;
+    height: 40px;
+    border: 1px solid #ee4d2d;
+    font-size: 14px;
+    background-color: #fff;
+    color: #ee4d2d;    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 20px;
+
+    &:hover {
+        opacity: 0.9;
+    }
+}
+
+.icon-search {
+    margin-top: 4px;
+}

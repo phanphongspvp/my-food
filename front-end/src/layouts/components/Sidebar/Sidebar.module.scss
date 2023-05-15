@@ -1,0 +1,256 @@
+.wrapper {
+    width: 530px;
+    padding: 62px 0;
+}
+
+.inner {
+
+}
+
+.header {
+
+}
+
+.title {
+    color: #fff;
+    line-height: 1.2;
+}
+
+.title-one {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.title-two {
+    font-size: 15px;
+}
+
+.input {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    margin-top: 27px;
+}
+
+.input-main {
+    font-size: 16px;
+    width: 400px;
+    height: 100%;
+    border: none;
+    outline: none;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    padding: 0 10px;
+    font-weight: 500;
+}
+
+.input-btn {
+    width: 70px;
+    height: 100%;
+    border: none;
+    outline: none;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    font-size: 22px;
+    color: #fff;
+    background-color: #0288D1;
+    position: relative;
+    cursor: pointer;
+}
+
+.input-icon {
+    
+}
+
+.content {
+    width: var(--width-sidebar);
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+.content-btn {
+    color: #fff;
+    border: 1px solid#fff;
+    font-size: 16px;
+    margin: 0 15px 15px 0;
+    background-color: transparent;
+    border-radius: 6px;
+    padding: 9px 21px;
+    transition: 0.5s ease;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #fff;
+        color: #000;
+    }
+}
+
+.contact-app {
+    margin-top: 16px;
+}
+
+.contact-title {
+    width: 370px;
+    font-size: 18px;
+    color: #f5f5f5;
+    line-height: 1.5;
+}
+
+.contact-wrap {
+    margin-top: 16px;
+    display: flex;
+}
+
+.contact-link {
+    display: flex;
+    align-items: center;
+    width: 165px;
+    height: 51px;
+    color: #fff;
+    border: 1px solid #fff;
+    background-color: #000;
+    padding: 0 16px;
+    border-radius: 6px;
+    margin-right: 16px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.contact-icon-ios {
+    font-size: 34px;
+}
+
+.contact-icon-android {
+    font-size: 28px;
+}
+
+.contact-info {
+    margin-top: -2px;
+    margin-left: 7px;
+}
+
+.contact-get {
+    font-size: 11px;
+}
+
+.contact-name {
+    line-height: 18px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+//Modal
+
+.modal-idea-list {
+    width: 470px;
+    height: 339px;
+    margin-top: 1px;
+    position: absolute;
+}
+
+.modal-idea-item {
+    width: 100%;
+    height: 58px;
+    background-color: #fff;
+    padding: 10px;
+    border-bottom: 1px solid #ebebeb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.modal-idea-wrap {
+    display: flex;
+    align-items: center;
+}
+
+.modal-idea-img {
+    width: 50px;
+    height: 30px;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.modal-idea-content {
+
+}
+
+.modal-idea-title {
+    font-size: 14px;
+    color: #252525;
+
+}
+
+.modal-idea-address {
+    font-size: 12px;
+    color: #959595;
+}
+
+.modal-idea-status {
+    font-size: 12px;
+    color: #239839;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+}
+
+.modal-idea-on {
+    display: block;
+    border-radius: 50%;
+    width: 8px;
+    height: 8px;
+    background-color: #239839;
+    margin-left: 5px;
+}
+
+.modal-idea-more {
+    display: flex;
+    align-items: center;
+    background-color: #ebebeb;
+    width: 100%;
+    height: 50px;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.modal-idea-icon {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: #fff;
+    background-color: #cf2127;
+    border-radius: 50%;
+    font-weight: 600;
+    margin-right: 10px;
+}
+
+.modal-idea-what {
+    font-size: 14px;
+    display: flex;
+}
+
+.modal-idea-key {
+    margin-left: 4px;
+    color: #cf2127;
+    font-weight: 600;
+}
+
+.loading {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 6px;
+}
+
+.loading-icon {
+    color: #fff;
+    font-size: 16px;
+    animation: spinner 1s linear infinite;
+}
