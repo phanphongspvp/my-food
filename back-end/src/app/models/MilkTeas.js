@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const mongooseDelete = require("mongoose-delete");
 
 const MilkTeas = new mongoose.Schema(
   {
@@ -10,5 +11,11 @@ const MilkTeas = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+//Add plugin
+MilkTeas.plugin(mongooseDelete, {
+  overrideMethods: "all",
+  deletedAt: true,
+});
 
 module.exports = mongoose.model("MilkTeas", MilkTeas);

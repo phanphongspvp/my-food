@@ -8,18 +8,16 @@ const Rices = require("../models/Rices");
 class RiceController {
   //GET PAGE rice
   mainRice(req, res) {
-    let riceQuery = Rices.find({});
+    let queryRice = Rices.find({});
 
-    Promise.all([riceQuery, Rices.countDocumentsDeleted({})])
+    Promise.all([queryRice, Rices.countDocumentsDeleted()])
       .then(([rices, deleteRice]) => {
         res.render("rice/homeRice", {
           deleteRice,
           rices: multipleMongooseToObject(rices),
         });
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch();
   }
 
   //POST CREATE PAGE rice
@@ -37,13 +35,7 @@ class RiceController {
 
   //GET EDIT PAGE rice
   createRice(req, res) {
-    Rices.findOne({})
-      .then((rices) => {
-        res.render("rice/createRice", { rices: mongooseToObject(rices) });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    res.render("rice/createRice");
   }
 
   //GET EDIT PAGE rice
@@ -61,7 +53,7 @@ class RiceController {
   updateRice(req, res) {
     Rices.updateOne({ _id: req.params.id }, req.body)
       .then(() => {
-        res.redirect("back");
+        res.redirect("/rice");
       })
       .catch((error) => {
         console.log(error);
@@ -70,7 +62,7 @@ class RiceController {
 
   //DELETE PAGE rice
   deleteRice(req, res) {
-    Rices.updateOne({ _id: req.params.id }, { deletedAt: new Date() })
+    Rices.delete({ _id: req.params.id })
       .then(() => {
         res.redirect("back");
       })
@@ -92,16 +84,55 @@ class RiceController {
       });
   }
 
+  //RESTORE PAGE rice
+  restoreRice(req, res) {
+    Rices.restore({ _id: req.params.id })
+      .then(() => res.redirect("/rice"))
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  //DELETE PAGE FORCE rice
+  deleteForceRice(req, res) {
+    Rices.deleteOne({ _id: req.params.id })
+      .then(() => res.redirect("/rice/trash"))
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   //Handle Form Action rice
   handleFormActionRice(req, res) {
     switch (req.body.action) {
       case "delete":
-        Rices.deleteMany({ _id: { $in: req.body.riceIds } })
+        Rices.delete({ _id: { $in: req.body.riceIds } })
           .then(() => {
             res.redirect("back");
           })
           .catch((error) => {
             console.log(error);
+          });
+        break;
+      default:
+        res.json({ message: "Action invalid !!!" });
+    }
+  }
+
+  handleFormAtcRice(req, res) {
+    switch (req.body.action) {
+      case "restore":
+        Rices.restore({ _id: { $in: req.body.riceIds } })
+          .then(() => res.redirect("back"))
+          .catch((err) => {
+            console.log(err);
+          });
+        break;
+      case "force":
+        Rices.deleteMany({ _id: { $in: req.body.riceIds } })
+          .then(() => res.redirect("back"))
+          .catch((err) => {
+            console.log(err);
           });
         break;
       default:

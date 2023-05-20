@@ -16,8 +16,8 @@ const Rices = new mongoose.Schema(
 
 //Add plugin
 Rices.plugin(mongooseDelete, {
+  overrideMethods: "all",
   deletedAt: true,
-  overrideMethods: true,
 });
 
 module.exports = mongoose.model("Rices", Rices);

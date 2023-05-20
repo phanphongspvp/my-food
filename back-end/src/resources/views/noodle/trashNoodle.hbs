@@ -1,7 +1,7 @@
-<form class="mt-4" name="container-form" method="POST" action="/rice/trash/handle-form-restore">
+<form class="mt-4" name="container-form" method="POST" action="/noodle/trash/handle-form-restore">
     <div>
-        <a href="/rice">Danh sách quán cơm</a>
-        <h3>Quán cơm đã xóa</h3>
+        <a href="/noodle">Danh sách quán bún</a>
+        <h3>Quán bún đã xóa</h3>
 
         <div class="mt-4 d-flex align-items-center">
             <div class="form-check">
@@ -24,20 +24,20 @@
         <thead>
             <tr>
                 <th scope="col" colspan="2"></th>
-                <th scope="col">Tên quán cơm</th>
-                <th scope="col">Địa chỉ quán cơm</th>
-                <th scope="col">Link ảnh quán cơm</th>
-                <th scope="col">Trạng thái quán cơm</th>
+                <th scope="col">Tên quán bún</th>
+                <th scope="col">Địa chỉ quán bún</th>
+                <th scope="col">Link ảnh quán bún</th>
+                <th scope="col">Trạng thái quán bún</th>
                 <th scope="col">Thời gian xóa</th>
                 <th scope="col">Thao tác</th>
             </tr>
         </thead>
         <tbody>
-            {{#each rices}}
+            {{#each noodles}}
             <tr>
                 <td>
                     <div class="form-check">
-                        <input type="checkbox" class="form-check-input" name="riceIds" value="{{this._id}}">
+                        <input type="checkbox" class="form-check-input" name="noodleIds" value="{{this._id}}">
                     </div>
                 </td>
                 <th scope="row">{{sum @index 1}}</th>
@@ -49,14 +49,14 @@
                 <td style="display: flex;">
                     <a href="" class="btn btn-primary btn-restore mr-2" data-id="{{this._id}}">Khôi phục</a>
                     <a href="" class="btn btn-danger" data-id="{{this._id}}" data-toggle="modal"
-                        data-target="#delete-course-modal">Xóa vĩnh viễn</a>
+                        data-target="#delete-noodle-modal">Xóa vĩnh viễn</a>
                 </td>
             </tr>
             {{else}}
             <tr>
                 <td colspan="5">
                     <h2>Thùng rác trống.</h2>
-                    <a href="/rice">Danh sách khoá học</a>
+                    <a href="/noodle">Danh sách quán bún</a>
                 </td>
             </tr>
             {{/each}}
@@ -64,11 +64,11 @@
     </table>
 </form>
 
-<form name="delete-rice-form" method="POST"></form>
-<form name="restore-rice-form" method="POST"></form>
+<form name="delete-noodle-form" method="POST"></form>
+<form name="restore-noodle-form" method="POST"></form>
 
 <!-- Button trigger modal -->
-<div class="modal fade" id="delete-course-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="delete-noodle-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -85,7 +85,7 @@
                 </br>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                    <button type="button" id="btn-delete-course" class="btn btn-primary">Xóa vĩnh viễn</button>
+                    <button type="button" id="btn-delete-noodle" class="btn btn-primary">Xóa vĩnh viễn</button>
                 </div>
             </div>
         </div>
@@ -93,51 +93,51 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            var riceId;
-            var btnDeleteCourse = document.getElementById('btn-delete-course');
-            var deleteForm = document.forms['delete-rice-form'];
-            var restoreForm = document.forms['restore-rice-form'];
+            var noodleId;
+            var btnDeletenoodle = document.getElementById('btn-delete-noodle');
+            var deleteForm = document.forms['delete-noodle-form'];
+            var restoreForm = document.forms['restore-noodle-form'];
             var restoreBtn = $('.btn-restore');
             //var containerForm = document.forms['container-form'];
             var containerForm = $('form[name="container-form"]');
             var checkboxAll = $('#checkbox-all');
-            var courseItemCheckbox = $('input[name="riceIds"]');
+            var noodleItemCheckbox = $('input[name="noodleIds"]');
             var btnSubmitAct = $('.btn-submit-act')
 
-            $('#delete-course-modal').on('show.bs.modal', function (event) {
+            $('#delete-noodle-modal').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget);
-                riceId = button.data('id');
+                noodleId = button.data('id');
             })
 
 
-            btnDeleteCourse.onclick = function () {
-                deleteForm.action = `/rice/${riceId}/force?_method=DELETE`;
+            btnDeletenoodle.onclick = function () {
+                deleteForm.action = `/noodle/${noodleId}/force?_method=DELETE`;
                 deleteForm.submit();
             }
 
             restoreBtn.click(function (e) {
                 e.preventDefault();
 
-                var riceId = $(this).data('id');
-                restoreForm.action = `/rice/${riceId}/restore?_method=PATCH`;
+                var noodleId = $(this).data('id');
+                restoreForm.action = `/noodle/${noodleId}/restore?_method=PATCH`;
                 restoreForm.submit();
             })
 
-            $('#delete-course-modal').on('show.bs.modal', function (event) {
+            $('#delete-noodle-modal').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget);
-                riceId = button.data('id');
+                noodleId = button.data('id');
             })
 
             //Checkbox all change
             checkboxAll.change(function () {
                 var isCheckedAll = $(this).prop('checked');
-                courseItemCheckbox.prop('checked', isCheckedAll);
+                noodleItemCheckbox.prop('checked', isCheckedAll);
                 renderCheckedAllSubmitBtn()
             });
 
-            //Course item checkbox change
-            courseItemCheckbox.change(function () {
-                var isCheckedAll = courseItemCheckbox.length === $('input[name="riceIds"]:checked').length;
+            //noodle item checkbox change
+            noodleItemCheckbox.change(function () {
+                var isCheckedAll = noodleItemCheckbox.length === $('input[name="noodleIds"]:checked').length;
                 checkboxAll.prop('checked', isCheckedAll);
                 renderCheckedAllSubmitBtn()
             })
@@ -152,7 +152,7 @@
 
             //Re-render check all submit button
             function renderCheckedAllSubmitBtn() {
-                var checkedCount = $('input[name="riceIds"]:checked').length;
+                var checkedCount = $('input[name="noodleIds"]:checked').length;
                 if (checkedCount > 0) btnSubmitAct.attr('disabled', false)
                 else btnSubmitAct.attr('disabled', true);
             }

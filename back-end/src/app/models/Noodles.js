@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const mongooseDelete = require("mongoose-delete");
 
 const Noodles = new mongoose.Schema(
   {
@@ -10,5 +11,11 @@ const Noodles = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+//Add plugin
+Noodles.plugin(mongooseDelete, {
+  overrideMethods: "all",
+  deletedAt: true,
+});
 
 module.exports = mongoose.model("Noodles", Noodles);

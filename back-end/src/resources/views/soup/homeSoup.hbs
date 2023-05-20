@@ -1,10 +1,10 @@
-<form class="mt-4" name="container-form" method="POST" action="/rice/handle-form-actions">
+<form class="mt-4" name="container-form" method="POST" action="/soup/handle-form-actions">
     <div>
-        <h3>Thông tin quán cơm</h3>
+        <h3>Thông tin quán phở</h3>
 
-        <a href="/rice/create" class="btn btn-primary btn-sm btn-submit-act mt-2">Thêm quán cơm</a>
-        {{#if deleteRice}}
-        <a href="/rice/trash">Thùng rác ({{deleteRice}})</a>
+        <a href="/soup/create" class="btn btn-primary btn-sm btn-submit-act mt-2">Thêm quán phở</a>
+        {{#if deleteSoup}}
+        <a href="/soup/trash">Thùng rác ({{deleteSoup}})</a>
         {{/if}}
 
         <div class="mt-4 d-flex align-items-center">
@@ -27,21 +27,21 @@
         <thead>
             <tr>
                 <th scope="col" colspan="2"></th>
-                <th scope="col">Tên quán cơm</th>
-                <th scope="col">Địa chỉ quán cơm</th>
-                <th scope="col">Ảnh quán cơm</th>
+                <th scope="col">Tên quán phở</th>
+                <th scope="col">Địa chỉ quán phở</th>
+                <th scope="col">Ảnh quán phở</th>
                 <th scope="col">Sale</th>
-                <th scope="col">Trạng thái quán cơm</th>
+                <th scope="col">Trạng thái quán phở</th>
                 <th scope="col">Thời gian tạo</th>
                 <th scope="col">Thao tác</th>
             </tr>
         </thead>
         <tbody>
-            {{#each rices}}
+            {{#each soups}}
             <tr>
                 <td>
                     <div class="form-check">
-                        <input type="checkbox" class="form-check-input" name="riceIds" value="{{this._id}}">
+                        <input type="checkbox" class="form-check-input" name="soupIds" value="{{this._id}}">
                     </div>
                 </td>
                 <th scope="row">{{sum @index 1}}</th>
@@ -58,16 +58,16 @@
                     </td>
                 <td>{{this.createdAt}}</td>
                 <td style="display: flex;">
-                    <a href="/rice/{{this._id}}/edit" class="btn btn-warning mr-2">Sửa</a>
+                    <a href="/soup/{{this._id}}/edit" class="btn btn-warning mr-2">Sửa</a>
                     <a href="" class="btn btn-danger" data-id="{{this._id}}" data-toggle="modal"
-                        data-target="#delete-rice-modal">Xóa</a>
+                        data-target="#delete-soup-modal">Xóa</a>
                 </td>
             </tr>
             {{else}}
             <tr>
                 <td colspan="5">
                     <h2>Bạn chưa đăng khóa học nào.</h2>
-                    <a href="/rice/create">Đăng khóa học ngay.</a>
+                    <a href="/soup/create">Đăng khóa học ngay.</a>
                 </td>
             </tr>
             {{/each}}
@@ -76,12 +76,12 @@
 </form>
 
 {{!-- Delete hidden form --}}
-<form name="delete-rice-form" method="POST">
+<form name="delete-soup-form" method="POST">
 
 </form>
 
 <!-- Button trigger modal -->
-<div class="modal fade" id="delete-rice-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="delete-soup-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -96,7 +96,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                <button type="button" id="btn-delete-rice" class="btn btn-primary">Xóa bỏ</button>
+                <button type="button" id="btn-delete-soup" class="btn btn-primary">Xóa bỏ</button>
             </div>
         </div>
     </div>
@@ -105,35 +105,35 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var _id;
-        var btnDeleterice = document.getElementById('btn-delete-rice');
-        var deleteForm = document.forms['delete-rice-form'];
+        var btnDeletesoup = document.getElementById('btn-delete-soup');
+        var deleteForm = document.forms['delete-soup-form'];
         //var containerForm = document.forms['container-form'];
         var containerForm = $('form[name="container-form"]');
         var checkboxAll = $('#checkbox-all');
-        var riceItemCheckbox = $('input[name="riceIds"]');
+        var soupItemCheckbox = $('input[name="soupIds"]');
         var btnSubmitAct = $('.btn-submit-act')
 
-        $('#delete-rice-modal').on('show.bs.modal', function (event) {
+        $('#delete-soup-modal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);
             _id = button.data('id');
         })
 
 
-        btnDeleterice.onclick = function () {
-            deleteForm.action = `/rice/${_id}/?_method=DELETE`;
+        btnDeletesoup.onclick = function () {
+            deleteForm.action = `/soup/${_id}/?_method=DELETE`;
             deleteForm.submit();
         }
 
         //Checkbox all change
         checkboxAll.change(function () {
             var isCheckedAll = $(this).prop('checked');
-            riceItemCheckbox.prop('checked', isCheckedAll);
+            soupItemCheckbox.prop('checked', isCheckedAll);
             renderCheckedAllSubmitBtn()
         });
 
-        //rice item checkbox change
-        riceItemCheckbox.change(function () {
-            var isCheckedAll = riceItemCheckbox.length === $('input[name="riceIds"]:checked').length;
+        //soup item checkbox change
+        soupItemCheckbox.change(function () {
+            var isCheckedAll = soupItemCheckbox.length === $('input[name="soupIds"]:checked').length;
             checkboxAll.prop('checked', isCheckedAll);
             renderCheckedAllSubmitBtn()
         })
@@ -143,7 +143,7 @@
 
         //Re-render check all submit button
         function renderCheckedAllSubmitBtn() {
-            var checkedCount = $('input[name="riceIds"]:checked').length;
+            var checkedCount = $('input[name="soupIds"]:checked').length;
             if (checkedCount > 0) btnSubmitAct.attr('disabled', false)
             else btnSubmitAct.attr('disabled', true);
         }

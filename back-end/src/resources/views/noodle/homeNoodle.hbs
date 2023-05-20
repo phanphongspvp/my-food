@@ -1,10 +1,10 @@
-<form class="mt-4" name="container-form" method="POST" action="/rice/handle-form-actions">
+<form class="mt-4" name="container-form" method="POST" action="/noodle/handle-form-actions">
     <div>
-        <h3>Thông tin quán cơm</h3>
+        <h3>Thông tin quán bún</h3>
 
-        <a href="/rice/create" class="btn btn-primary btn-sm btn-submit-act mt-2">Thêm quán cơm</a>
-        {{#if deleteRice}}
-        <a href="/rice/trash">Thùng rác ({{deleteRice}})</a>
+        <a href="/noodle/create" class="btn btn-primary btn-sm btn-submit-act mt-2">Thêm quán bún</a>
+        {{#if deleteNoodle}}
+        <a href="/noodle/trash">Thùng rác ({{deleteNoodle}})</a>
         {{/if}}
 
         <div class="mt-4 d-flex align-items-center">
@@ -27,21 +27,21 @@
         <thead>
             <tr>
                 <th scope="col" colspan="2"></th>
-                <th scope="col">Tên quán cơm</th>
-                <th scope="col">Địa chỉ quán cơm</th>
-                <th scope="col">Ảnh quán cơm</th>
+                <th scope="col">Tên quán bún</th>
+                <th scope="col">Địa chỉ quán bún</th>
+                <th scope="col">Ảnh quán bún</th>
                 <th scope="col">Sale</th>
-                <th scope="col">Trạng thái quán cơm</th>
+                <th scope="col">Trạng thái quán bún</th>
                 <th scope="col">Thời gian tạo</th>
                 <th scope="col">Thao tác</th>
             </tr>
         </thead>
         <tbody>
-            {{#each rices}}
+            {{#each noodles}}
             <tr>
                 <td>
                     <div class="form-check">
-                        <input type="checkbox" class="form-check-input" name="riceIds" value="{{this._id}}">
+                        <input type="checkbox" class="form-check-input" name="noodleIds" value="{{this._id}}">
                     </div>
                 </td>
                 <th scope="row">{{sum @index 1}}</th>
@@ -58,16 +58,16 @@
                     </td>
                 <td>{{this.createdAt}}</td>
                 <td style="display: flex;">
-                    <a href="/rice/{{this._id}}/edit" class="btn btn-warning mr-2">Sửa</a>
+                    <a href="/noodle/{{this._id}}/edit" class="btn btn-warning mr-2">Sửa</a>
                     <a href="" class="btn btn-danger" data-id="{{this._id}}" data-toggle="modal"
-                        data-target="#delete-rice-modal">Xóa</a>
+                        data-target="#delete-noodle-modal">Xóa</a>
                 </td>
             </tr>
             {{else}}
             <tr>
                 <td colspan="5">
                     <h2>Bạn chưa đăng khóa học nào.</h2>
-                    <a href="/rice/create">Đăng khóa học ngay.</a>
+                    <a href="/noodle/create">Đăng khóa học ngay.</a>
                 </td>
             </tr>
             {{/each}}
@@ -76,12 +76,12 @@
 </form>
 
 {{!-- Delete hidden form --}}
-<form name="delete-rice-form" method="POST">
+<form name="delete-noodle-form" method="POST">
 
 </form>
 
 <!-- Button trigger modal -->
-<div class="modal fade" id="delete-rice-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="delete-noodle-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -96,7 +96,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                <button type="button" id="btn-delete-rice" class="btn btn-primary">Xóa bỏ</button>
+                <button type="button" id="btn-delete-noodle" class="btn btn-primary">Xóa bỏ</button>
             </div>
         </div>
     </div>
@@ -105,35 +105,35 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var _id;
-        var btnDeleterice = document.getElementById('btn-delete-rice');
-        var deleteForm = document.forms['delete-rice-form'];
+        var btnDeleteNoodle = document.getElementById('btn-delete-noodle');
+        var deleteForm = document.forms['delete-noodle-form'];
         //var containerForm = document.forms['container-form'];
         var containerForm = $('form[name="container-form"]');
         var checkboxAll = $('#checkbox-all');
-        var riceItemCheckbox = $('input[name="riceIds"]');
+        var noodleItemCheckbox = $('input[name="noodleIds"]');
         var btnSubmitAct = $('.btn-submit-act')
 
-        $('#delete-rice-modal').on('show.bs.modal', function (event) {
+        $('#delete-noodle-modal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);
             _id = button.data('id');
         })
 
 
-        btnDeleterice.onclick = function () {
-            deleteForm.action = `/rice/${_id}/?_method=DELETE`;
+        btnDeleteNoodle.onclick = function () {
+            deleteForm.action = `/noodle/${_id}/?_method=DELETE`;
             deleteForm.submit();
         }
 
         //Checkbox all change
         checkboxAll.change(function () {
             var isCheckedAll = $(this).prop('checked');
-            riceItemCheckbox.prop('checked', isCheckedAll);
+            noodleItemCheckbox.prop('checked', isCheckedAll);
             renderCheckedAllSubmitBtn()
         });
 
-        //rice item checkbox change
-        riceItemCheckbox.change(function () {
-            var isCheckedAll = riceItemCheckbox.length === $('input[name="riceIds"]:checked').length;
+        //noodle item checkbox change
+        noodleItemCheckbox.change(function () {
+            var isCheckedAll = noodleItemCheckbox.length === $('input[name="noodleIds"]:checked').length;
             checkboxAll.prop('checked', isCheckedAll);
             renderCheckedAllSubmitBtn()
         })
@@ -143,7 +143,7 @@
 
         //Re-render check all submit button
         function renderCheckedAllSubmitBtn() {
-            var checkedCount = $('input[name="riceIds"]:checked').length;
+            var checkedCount = $('input[name="noodleIds"]:checked').length;
             if (checkedCount > 0) btnSubmitAct.attr('disabled', false)
             else btnSubmitAct.attr('disabled', true);
         }
