@@ -1,0 +1,161 @@
+<form class="mt-4" name="container-form" method="POST" action="/juice/trash/handle-form-restore">
+    <div>
+        <a href="/juice">Danh sách quán nước ép</a>
+        <h3>Quán nước ép đã xóa</h3>
+
+        <div class="mt-4 d-flex align-items-center">
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input mt-2" id="checkbox-all">
+                <label class="form-check-label" for="checkbox-all">Chọn tất cả</label>
+            </div>
+
+            <select class="form-control form-control-sm ml-4 mr-4" style="width: 180px;" name="action" required>
+                <option value="">-- Chọn Hành động --</option>
+                <option value="restore">Khôi phục</option>
+                <option value="force">Xóa vĩnh viễn</option>
+            </select>
+
+            <button class="btn btn-primary btn-sm btn-submit-act" disabled>Áp dụng</button>
+        </div>
+
+    </div>
+
+    <table class="table mt-4">
+        <thead>
+            <tr>
+                <th scope="col" colspan="2"></th>
+                <th scope="col">Tên quán nước ép</th>
+                <th scope="col">Địa chỉ quán nước ép</th>
+                <th scope="col">Link ảnh quán nước ép</th>
+                <th scope="col">Trạng thái quán nước ép</th>
+                <th scope="col">Thời gian xóa</th>
+                <th scope="col">Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each juices}}
+            <tr>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="juiceIds" value="{{this._id}}">
+                    </div>
+                </td>
+                <th scope="row">{{sum @index 1}}</th>
+                <td>{{this.title}}</td>
+                <td>{{this.address}}</td>
+                <td>{{this.image}}</td>
+                <td>{{this.active}}</td>
+                <td>{{this.deletedAt}}</td>
+                <td style="display: flex;">
+                    <a href="" class="btn btn-primary btn-restore mr-2" data-id="{{this._id}}">Khôi phục</a>
+                    <a href="" class="btn btn-danger" data-id="{{this._id}}" data-toggle="modal"
+                        data-target="#delete-juice-modal">Xóa vĩnh viễn</a>
+                </td>
+            </tr>
+            {{else}}
+            <tr>
+                <td colspan="5">
+                    <h2>Thùng rác trống.</h2>
+                    <a href="/juice">Danh sách quán nước ép</a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</form>
+
+<form name="delete-juice-form" method="POST"></form>
+<form name="restore-juice-form" method="POST"></form>
+
+<!-- Button trigger modal -->
+<div class="modal fade" id="delete-juice-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Xóa khóa học?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Hành động này không thể khôi phục.
+                <br>
+                Bạn vẫn muốn xóa quán này?
+                </br>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                    <button type="button" id="btn-delete-juice" class="btn btn-primary">Xóa vĩnh viễn</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var juiceId;
+            var btnDeletejuice = document.getElementById('btn-delete-juice');
+            var deleteForm = document.forms['delete-juice-form'];
+            var restoreForm = document.forms['restore-juice-form'];
+            var restoreBtn = $('.btn-restore');
+            //var containerForm = document.forms['container-form'];
+            var containerForm = $('form[name="container-form"]');
+            var checkboxAll = $('#checkbox-all');
+            var juiceItemCheckbox = $('input[name="juiceIds"]');
+            var btnSubmitAct = $('.btn-submit-act')
+
+            $('#delete-juice-modal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                juiceId = button.data('id');
+            })
+
+
+            btnDeletejuice.onclick = function () {
+                deleteForm.action = `/juice/${juiceId}/force?_method=DELETE`;
+                deleteForm.submit();
+            }
+
+            restoreBtn.click(function (e) {
+                e.preventDefault();
+
+                var juiceId = $(this).data('id');
+                restoreForm.action = `/juice/${juiceId}/restore?_method=PATCH`;
+                restoreForm.submit();
+            })
+
+            $('#delete-juice-modal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                juiceId = button.data('id');
+            })
+
+            //Checkbox all change
+            checkboxAll.change(function () {
+                var isCheckedAll = $(this).prop('checked');
+                juiceItemCheckbox.prop('checked', isCheckedAll);
+                renderCheckedAllSubmitBtn()
+            });
+
+            //juice item checkbox change
+            juiceItemCheckbox.change(function () {
+                var isCheckedAll = juiceItemCheckbox.length === $('input[name="juiceIds"]:checked').length;
+                checkboxAll.prop('checked', isCheckedAll);
+                renderCheckedAllSubmitBtn()
+            })
+
+            //Check all submit button clicked
+            //containerForm.on('submit', function (e) {
+            //    var isSubmittable = btnSubmitAct.hasClass('disabled');
+            //    if (isSubmittable) {
+            //        e.preventDefault();
+            //    }
+            //});
+
+            //Re-render check all submit button
+            function renderCheckedAllSubmitBtn() {
+                var checkedCount = $('input[name="juiceIds"]:checked').length;
+                if (checkedCount > 0) btnSubmitAct.attr('disabled', false)
+                else btnSubmitAct.attr('disabled', true);
+            }
+        });
+
+    </script>

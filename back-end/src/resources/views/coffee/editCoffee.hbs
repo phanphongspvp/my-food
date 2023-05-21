@@ -1,0 +1,22 @@
+<div class="mt-4 ml-4">
+    <h3>Sửa thông tin coffee</h3>
+    <form method="POST" action="/coffees/{{coffees._id}}?_method=PUT">
+        <div class="form-group">
+            <label for="title">Tên quán coffee</label>
+            <input type="text" class="form-control" id="title" name="title" value="{{coffees.title}}">
+        </div>
+        <div class="form-group">
+            <label for="address">Địa chỉ quán coffee</label>
+            <input type="text" class="form-control" id="address" name="address" value="{{coffees.address}}">
+        </div>
+        <div class="form-group">
+            <label for="image">Link ảnh quán coffee</label>
+            <input type="text" class="form-control" id="image" name="image" value="{{coffees.image}}">
+        </div>
+        <div class="form-group">
+            <label for="active">Trạng thái quán coffee</label>
+            <input type="text" class="form-control" id="active" name="active" value="{{coffees.active}}">
+        </div>
+        <button type="submit" class="btn btn-primary">Lưu lại</button>
+    </form>
+</div>

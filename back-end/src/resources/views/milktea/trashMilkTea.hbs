@@ -1,0 +1,161 @@
+<form class="mt-4" name="container-form" method="POST" action="/milktea/trash/handle-form-restore">
+    <div>
+        <a href="/milktea">Danh sách quán trà sữa</a>
+        <h3>Quán trà sữa đã xóa</h3>
+
+        <div class="mt-4 d-flex align-items-center">
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input mt-2" id="checkbox-all">
+                <label class="form-check-label" for="checkbox-all">Chọn tất cả</label>
+            </div>
+
+            <select class="form-control form-control-sm ml-4 mr-4" style="width: 180px;" name="action" required>
+                <option value="">-- Chọn Hành động --</option>
+                <option value="restore">Khôi phục</option>
+                <option value="force">Xóa vĩnh viễn</option>
+            </select>
+
+            <button class="btn btn-primary btn-sm btn-submit-act" disabled>Áp dụng</button>
+        </div>
+
+    </div>
+
+    <table class="table mt-4">
+        <thead>
+            <tr>
+                <th scope="col" colspan="2"></th>
+                <th scope="col">Tên quán trà sữa</th>
+                <th scope="col">Địa chỉ quán trà sữa</th>
+                <th scope="col">Link ảnh quán trà sữa</th>
+                <th scope="col">Trạng thái quán trà sữa</th>
+                <th scope="col">Thời gian xóa</th>
+                <th scope="col">Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each milkteas}}
+            <tr>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="milkteaIds" value="{{this._id}}">
+                    </div>
+                </td>
+                <th scope="row">{{sum @index 1}}</th>
+                <td>{{this.title}}</td>
+                <td>{{this.address}}</td>
+                <td>{{this.image}}</td>
+                <td>{{this.active}}</td>
+                <td>{{this.deletedAt}}</td>
+                <td style="display: flex;">
+                    <a href="" class="btn btn-primary btn-restore mr-2" data-id="{{this._id}}">Khôi phục</a>
+                    <a href="" class="btn btn-danger" data-id="{{this._id}}" data-toggle="modal"
+                        data-target="#delete-milktea-modal">Xóa vĩnh viễn</a>
+                </td>
+            </tr>
+            {{else}}
+            <tr>
+                <td colspan="5">
+                    <h2>Thùng rác trống.</h2>
+                    <a href="/milktea">Danh sách quán trà sữa</a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</form>
+
+<form name="delete-milktea-form" method="POST"></form>
+<form name="restore-milktea-form" method="POST"></form>
+
+<!-- Button trigger modal -->
+<div class="modal fade" id="delete-milktea-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Xóa khóa học?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Hành động này không thể khôi phục.
+                <br>
+                Bạn vẫn muốn xóa quán này?
+                </br>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                    <button type="button" id="btn-delete-milktea" class="btn btn-primary">Xóa vĩnh viễn</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var milkteaId;
+            var btnDeletemilktea = document.getElementById('btn-delete-milktea');
+            var deleteForm = document.forms['delete-milktea-form'];
+            var restoreForm = document.forms['restore-milktea-form'];
+            var restoreBtn = $('.btn-restore');
+            //var containerForm = document.forms['container-form'];
+            var containerForm = $('form[name="container-form"]');
+            var checkboxAll = $('#checkbox-all');
+            var milkteaItemCheckbox = $('input[name="milkteaIds"]');
+            var btnSubmitAct = $('.btn-submit-act')
+
+            $('#delete-milktea-modal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                milkteaId = button.data('id');
+            })
+
+
+            btnDeletemilktea.onclick = function () {
+                deleteForm.action = `/milktea/${milkteaId}/force?_method=DELETE`;
+                deleteForm.submit();
+            }
+
+            restoreBtn.click(function (e) {
+                e.preventDefault();
+
+                var milkteaId = $(this).data('id');
+                restoreForm.action = `/milktea/${milkteaId}/restore?_method=PATCH`;
+                restoreForm.submit();
+            })
+
+            $('#delete-milktea-modal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                milkteaId = button.data('id');
+            })
+
+            //Checkbox all change
+            checkboxAll.change(function () {
+                var isCheckedAll = $(this).prop('checked');
+                milkteaItemCheckbox.prop('checked', isCheckedAll);
+                renderCheckedAllSubmitBtn()
+            });
+
+            //milktea item checkbox change
+            milkteaItemCheckbox.change(function () {
+                var isCheckedAll = milkteaItemCheckbox.length === $('input[name="milkteaIds"]:checked').length;
+                checkboxAll.prop('checked', isCheckedAll);
+                renderCheckedAllSubmitBtn()
+            })
+
+            //Check all submit button clicked
+            //containerForm.on('submit', function (e) {
+            //    var isSubmittable = btnSubmitAct.hasClass('disabled');
+            //    if (isSubmittable) {
+            //        e.preventDefault();
+            //    }
+            //});
+
+            //Re-render check all submit button
+            function renderCheckedAllSubmitBtn() {
+                var checkedCount = $('input[name="milkteaIds"]:checked').length;
+                if (checkedCount > 0) btnSubmitAct.attr('disabled', false)
+                else btnSubmitAct.attr('disabled', true);
+            }
+        });
+
+    </script>

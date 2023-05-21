@@ -1,8 +1,6 @@
-const {
-  multipleMongooseToObject,
-  mongooseToObject,
-} = require("../../utils/mongoose");
+const { mongooseToObject } = require("../../utils/mongoose");
 
+const { mongoosesCustomTimeAt } = require("../../utils/mongooseCustomTime");
 const Rices = require("../models/Rices");
 
 class RiceController {
@@ -10,11 +8,11 @@ class RiceController {
   mainRice(req, res) {
     let queryRice = Rices.find({});
 
-    Promise.all([queryRice, Rices.countDocumentsDeleted()])
+    return Promise.all([queryRice, Rices.countDocumentsDeleted()])
       .then(([rices, deleteRice]) => {
         res.render("rice/homeRice", {
           deleteRice,
-          rices: multipleMongooseToObject(rices),
+          rices: mongoosesCustomTimeAt(rices),
         });
       })
       .catch();
@@ -76,7 +74,7 @@ class RiceController {
     Rices.findDeleted({})
       .then((rices) => {
         res.render("rice/trashRice", {
-          rices: multipleMongooseToObject(rices),
+          rices: mongoosesCustomTimeAt(rices),
         });
       })
       .catch((error) => {

@@ -1,7 +1,6 @@
-const {
-  multipleMongooseToObject,
-  mongooseToObject,
-} = require("../../utils/mongoose");
+const { mongooseToObject } = require("../../utils/mongoose");
+
+const { mongoosesCustomTimeAt } = require("../../utils/mongooseCustomTime");
 
 const Soups = require("../models/Soups");
 
@@ -14,7 +13,7 @@ class SoupController {
       .then(([soups, deleteSoup]) => {
         res.render("soup/homeSoup", {
           deleteSoup,
-          soups: multipleMongooseToObject(soups),
+          soups: mongoosesCustomTimeAt(soups),
         });
       })
       .catch();
@@ -76,7 +75,7 @@ class SoupController {
     Soups.findDeleted({})
       .then((soups) => {
         res.render("soup/trashSoup", {
-          soups: multipleMongooseToObject(soups),
+          soups: mongoosesCustomTimeAt(soups),
         });
       })
       .catch((error) => {

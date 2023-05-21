@@ -1,0 +1,22 @@
+<div class="mt-4 ml-4">
+    <h3>Sửa thông tin nước ép</h3>
+    <form method="POST" action="/juices/{{juices._id}}?_method=PUT">
+        <div class="form-group">
+            <label for="title">Tên quán nước ép</label>
+            <input type="text" class="form-control" id="title" name="title" value="{{juices.title}}">
+        </div>
+        <div class="form-group">
+            <label for="address">Địa chỉ quán nước ép</label>
+            <input type="text" class="form-control" id="address" name="address" value="{{juices.address}}">
+        </div>
+        <div class="form-group">
+            <label for="image">Link ảnh quán nước ép</label>
+            <input type="text" class="form-control" id="image" name="image" value="{{juices.image}}">
+        </div>
+        <div class="form-group">
+            <label for="active">Trạng thái quán nước ép</label>
+            <input type="text" class="form-control" id="active" name="active" value="{{juices.active}}">
+        </div>
+        <button type="submit" class="btn btn-primary">Lưu lại</button>
+    </form>
+</div>

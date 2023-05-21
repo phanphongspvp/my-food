@@ -1,7 +1,6 @@
-const {
-  multipleMongooseToObject,
-  mongooseToObject,
-} = require("../../utils/mongoose");
+const { mongooseToObject } = require("../../utils/mongoose");
+
+const { mongoosesCustomTimeAt } = require("../../utils/mongooseCustomTime");
 
 const Porridges = require("../models/Porridges");
 
@@ -14,7 +13,7 @@ class PorridgeController {
       .then(([porridges, deletePorridge]) => {
         res.render("porridge/homePorridge", {
           deletePorridge,
-          porridges: multipleMongooseToObject(porridges),
+          porridges: mongoosesCustomTimeAt(porridges),
         });
       })
       .catch();
@@ -78,7 +77,7 @@ class PorridgeController {
     Porridges.findDeleted({})
       .then((porridges) => {
         res.render("porridge/trashPorridge", {
-          porridges: multipleMongooseToObject(porridges),
+          porridges: mongoosesCustomTimeAt(porridges),
         });
       })
       .catch((error) => {

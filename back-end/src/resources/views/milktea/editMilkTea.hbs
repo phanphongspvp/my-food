@@ -1,0 +1,22 @@
+<div class="mt-4 ml-4">
+    <h3>Sửa thông tin trà sữa</h3>
+    <form method="POST" action="/milkteas/{{milkteas._id}}?_method=PUT">
+        <div class="form-group">
+            <label for="title">Tên quán trà sữa</label>
+            <input type="text" class="form-control" id="title" name="title" value="{{milkteas.title}}">
+        </div>
+        <div class="form-group">
+            <label for="address">Địa chỉ quán trà sữa</label>
+            <input type="text" class="form-control" id="address" name="address" value="{{milkteas.address}}">
+        </div>
+        <div class="form-group">
+            <label for="image">Link ảnh quán trà sữa</label>
+            <input type="text" class="form-control" id="image" name="image" value="{{milkteas.image}}">
+        </div>
+        <div class="form-group">
+            <label for="active">Trạng thái quán trà sữa</label>
+            <input type="text" class="form-control" id="active" name="active" value="{{milkteas.active}}">
+        </div>
+        <button type="submit" class="btn btn-primary">Lưu lại</button>
+    </form>
+</div>

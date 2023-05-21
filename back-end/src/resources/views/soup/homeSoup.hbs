@@ -33,6 +33,7 @@
                 <th scope="col">Sale</th>
                 <th scope="col">Trạng thái quán phở</th>
                 <th scope="col">Thời gian tạo</th>
+                <th scope="col">Thời gian sửa gần nhất</th>
                 <th scope="col">Thao tác</th>
             </tr>
         </thead>
@@ -57,6 +58,7 @@
                     {{/if}}
                     </td>
                 <td>{{this.createdAt}}</td>
+                <td>{{this.updatedAt}}</td>
                 <td style="display: flex;">
                     <a href="/soup/{{this._id}}/edit" class="btn btn-warning mr-2">Sửa</a>
                     <a href="" class="btn btn-danger" data-id="{{this._id}}" data-toggle="modal"
