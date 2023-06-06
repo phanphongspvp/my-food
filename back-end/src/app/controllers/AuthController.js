@@ -1,3 +1,4 @@
+const session = require("express-session");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
@@ -44,9 +45,76 @@ class AuthController {
           httpOnly: true,
         })
         .status(200)
-        .json({ ...otherDetails });
+        .render("home");
     } catch (error) {
       next(error);
+    }
+  }
+
+  loginPage(req, res) {
+    res.render("authentication/login");
+  }
+
+  registerPage(req, res) {
+    res.render("authentication/register");
+  }
+
+  registerCreate(req, res, next) {
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(req.body.password, salt);
+
+    Users.findOne({ username: req.body.username })
+      .then((user) => {
+        if (user) {
+          res.status(404).json("Tai khoan da ton tai");
+          next();
+        } else {
+          const users = new Users({
+            fullname: req.body.fullname,
+            username: req.body.username,
+            email: req.body.email,
+            password: hash,
+          });
+
+          req.session.user = users;
+
+          users
+            .save()
+            .then(() => {
+              res.redirect("/");
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+      })
+      .catch((err) => console.log(err));
+  }
+
+  async handleLogin(req, res, next) {
+    const username = req.body.username;
+    const password = req.body.password;
+
+    try {
+      const user = await Users.findOne({ username: username }).exec();
+      const isPassWord = await bcrypt.compare(password, user.password);
+
+      if (!user) {
+        res.status(200).json("User not found !!!");
+      }
+      if (!isPassWord) {
+      }
+      req.session.user = user;
+      res.redirect("/");
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  handleLogout(req, res) {
+    if (req.session.user) {
+      req.session.user = null;
+      res.redirect("/");
     }
   }
 }

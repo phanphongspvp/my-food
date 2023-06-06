@@ -6,6 +6,7 @@ const noodlePage = require("./noodlePAGE");
 const milkteaPage = require("./milkteaPAGE");
 const juicePage = require("./juicePAGE");
 const coffeePage = require("./coffeePAGE");
+const authPage = require("./authenPAGE");
 
 function routerPAGE(app) {
   app.use("/", sitePage);
@@ -16,6 +17,7 @@ function routerPAGE(app) {
   app.use("/", milkteaPage);
   app.use("/", juicePage);
   app.use("/", coffeePage);
+  app.use("/", authPage);
 }
 
 module.exports = routerPAGE;

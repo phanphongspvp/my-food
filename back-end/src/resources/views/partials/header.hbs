@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Trang quản lý admin FongFood</a>
+    <a class="navbar-brand" href="/"><img alt="logo" src="/images/logo.png" style="width: 100px;" /></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -37,10 +37,14 @@
                     Thao tác
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="/course/create">Đăng khoá học</a>
-                    <a class="dropdown-item" href="/course/me">Khóa học của tôi</a>
+                    {{#if usernameSession}}
+                        <p class="dropdown-item">{{usernameSession}}</p>
+                    {{else}}
+                        <a class="dropdown-item" href="/admin/login">Đăng nhập</a>
+                        <a class="dropdown-item" href="/admin/register">Đăng ký</a>
+                    {{/if}}
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Đăng xuẩt</a>
+                    <a class="dropdown-item" href="/admin/logout">Đăng xuẩt</a>
                 </div>
             </li>
         </ul>

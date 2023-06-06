@@ -5,7 +5,10 @@ const cors = require("cors");
 const handlebars = require("express-handlebars");
 const cookieParser = require("cookie-parser");
 const methodOverride = require("method-override");
+//Middleware morgan morgan morgan
 const bodyParser = require("body-parser");
+const session = require("express-session");
+const morgan = require("morgan");
 const port = 5000;
 
 const app = express();
@@ -22,7 +25,26 @@ app.use(express.static(path.join(__dirname, "/public")));
 app.use(methodOverride("_method"));
 
 //Middleware body-parser
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
+
+//Middleware cookie-parser
+app.use(cookieParser());
+
+//Middleware morgan
+app.use(morgan("tiny"));
+
+//Middleware express-session
+app.use(
+  session({
+    name: "username",
+    secret: "key that will sign cookie",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 60 * 60 * 1000,
+    },
+  })
+);
 
 app.use(express.json());
 app.use(cookieParser());

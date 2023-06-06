@@ -4,7 +4,7 @@
 
         <a href="/rice/create" class="btn btn-primary btn-sm btn-submit-act mt-2">Thêm quán cơm</a>
         {{#if deleteRice}}
-        <a href="/rice/trash">Thùng rác ({{deleteRice}})</a>
+        <a href="/rice/trash" class="d-block mt-3">Thùng rác ({{deleteRice}})</a>
         {{/if}}
 
         <div class="mt-4 d-flex align-items-center">
@@ -68,8 +68,8 @@
             {{else}}
             <tr>
                 <td colspan="5">
-                    <h2>Bạn chưa đăng khóa học nào.</h2>
-                    <a href="/rice/create">Đăng khóa học ngay.</a>
+                    <h2>Bạn chưa đăng quán nào.</h2>
+                    <a href="/rice/create">Đăng quán ngay.</a>
                 </td>
             </tr>
             {{/each}}
@@ -88,13 +88,13 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Xóa khóa học?</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Xóa quán?</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                Bạn có chắc muốn xóa khóa học này?
+                Bạn có chắc muốn xóa quán này?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>

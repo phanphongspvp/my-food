@@ -4,7 +4,7 @@
 
         <a href="/milktea/create" class="btn btn-primary btn-sm btn-submit-act mt-2">Thêm quán trà sữa</a>
         {{#if deleteMilkTea}}
-        <a href="/milktea/trash">Thùng rác ({{deleteMilkTea}})</a>
+        <a href="/milktea/trash" class="d-block mt-3">Thùng rác ({{deleteMilkTea}})</a>
         {{/if}}
 
         <div class="mt-4 d-flex align-items-center">
@@ -68,8 +68,8 @@
             {{else}}
             <tr>
                 <td colspan="5">
-                    <h2>Bạn chưa đăng khóa học nào.</h2>
-                    <a href="/milktea/create">Đăng khóa học ngay.</a>
+                    <h2>Bạn chưa đăng quán nào.</h2>
+                    <a href="/rice/create">Đăng quán ngay.</a>
                 </td>
             </tr>
             {{/each}}
@@ -94,7 +94,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                Bạn có chắc muốn xóa khóa học này?
+                Bạn có chắc muốn xóa quán này?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>

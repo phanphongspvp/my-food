@@ -1,6 +1,7 @@
 class SiteController {
   home(req, res) {
-    res.render("home.hbs");
+    const usernameSession = req.session.user?.fullname;
+    res.render("home.hbs", { usernameSession });
   }
 }
 
