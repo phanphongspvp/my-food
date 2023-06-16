@@ -1,6 +1,7 @@
 const session = require("express-session");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const notifier = require("node-notifier");
 
 const { createError } = require("../../utils/error");
 
@@ -52,11 +53,15 @@ class AuthController {
   }
 
   loginPage(req, res) {
-    res.render("authentication/login");
+    res.render("authentication/login", {
+      layout: "bodyOnly",
+    });
   }
 
   registerPage(req, res) {
-    res.render("authentication/register");
+    res.render("authentication/register", {
+      layout: "bodyOnly",
+    });
   }
 
   registerCreate(req, res, next) {
@@ -97,15 +102,29 @@ class AuthController {
 
     try {
       const user = await Users.findOne({ username: username }).exec();
-      const isPassWord = await bcrypt.compare(password, user.password);
 
       if (!user) {
-        res.status(200).json("User not found !!!");
+        notifier.notify({
+          title: "Thông báo",
+          message: "Tài khoản hoặc mật khẩu không chính xác !!!",
+          icon: "Message error user",
+        });
+        res.redirect("/");
+      } else {
+        const isPassWord = await bcrypt.compare(password, user.password);
+
+        if (isPassWord) {
+          req.session.user = user;
+          res.redirect("/");
+        } else {
+          notifier.notify({
+            title: "Thông báo",
+            message: "Tài khoản hoặc mật khẩu không chính xác !!!",
+            icon: "Message error user",
+          });
+          res.redirect("/");
+        }
       }
-      if (!isPassWord) {
-      }
-      req.session.user = user;
-      res.redirect("/");
     } catch (error) {
       console.log(error);
     }
@@ -113,7 +132,7 @@ class AuthController {
 
   handleLogout(req, res) {
     if (req.session.user) {
-      req.session.user = null;
+      res.clearCookie("myCookieUser");
       res.redirect("/");
     }
   }

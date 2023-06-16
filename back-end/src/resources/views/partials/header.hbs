@@ -1,52 +1,54 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/"><img alt="logo" src="/images/logo.png" style="width: 100px;" /></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+{{!-- <ul class="navbar-nav mr-auto">
+    <li class="nav-item active">
+        <a href="/"><img alt="logo" src="/images/logo.png" style="width: 100px;" /></a>
+    </li>
+    <li class="nav-item active">
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/rice">Rice</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/soup">Phở</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/porridge">Cháo</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/noodle">Bún</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/milktea">Trà sữa</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/juice">Nước ép</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/coffee">Coffee</a>
+    </li>
+</ul> --}}
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/rice">Rice</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/soup">Phở</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/porridge">Cháo</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/noodle">Bún</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/milktea">Trà sữa</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/juice">Nước ép</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/coffee">Coffee</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    Thao tác
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    {{#if usernameSession}}
-                        <p class="dropdown-item">{{usernameSession}}</p>
-                    {{else}}
-                        <a class="dropdown-item" href="/admin/login">Đăng nhập</a>
-                        <a class="dropdown-item" href="/admin/register">Đăng ký</a>
-                    {{/if}}
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/admin/logout">Đăng xuẩt</a>
-                </div>
-            </li>
-        </ul>
-    </div>
-</nav>
+{{!-- <style>
+    a{
+        align-items-start: ;
+    }
+</style> --}}
+
+<a href="/"><img alt="logo" src="/images/logo.png" style="width: 100px;" /></a>
+<div class="dropdown">
+    <button class="btn btn-warning dropdown-toggle" type="button" id="dropdown-main" data-toggle="dropdown" aria-haspopup="true" và aria-expanded="false">
+        Quản lý quán
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdown-main">
+        <div class="d-flex flex-column align-items-start">
+            <a class="btn btn-dark w-100 mb-2" href="/">Home</a>
+            <a class="btn btn-dark w-100 mb-2" href="/rice">Rice</a>
+            <a class="btn btn-dark w-100 mb-2" href="/soup">Phở</a>
+            <a class="btn btn-dark w-100 mb-2" href="/porridge">Cháo</a>
+            <a class="btn btn-dark w-100 mb-2" href="/noodle">Bún</a>
+            <a class="btn btn-dark w-100 mb-2" href="/milktea">Trà sữa</a>
+            <a class="btn btn-dark w-100 mb-2" href="/juice">Nước ép</a>
+            <a class="btn btn-dark w-100 mb-2" href="/coffee">Coffee</a>
+        </div>
+        </div>
+</div>

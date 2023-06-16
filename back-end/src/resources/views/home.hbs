@@ -1,6 +1,7 @@
-{{#if usernameSession}}
-    <h1>Xin chào admin : {{usernameSession}}</h1>
-{{else}}
-    <h1>Bạn chưa đăng nhập !!!</h1>
-    <a href="/admin/login">Hãy đăng nhập để quản lý.</a>
-{{/if}}
+<br />
+<form action="/upload" method="POST" enctype="multipart/form-data">
+    
+    <input type="file" name="file" />
+    <input type="submit" value="update" />
+
+</form>

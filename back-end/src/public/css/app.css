@@ -1,6 +1,22 @@
+a {
+  text-decoration: none; }
+
 .img-home {
   width: 100%;
   height: 100vh; }
 
 .form-img {
   width: 100%; }
+
+.login-main {
+  display: flex; }
+
+.login-wrapper {
+  width: 400px;
+  height: 100%;
+  margin: 0 auto; }
+
+.login-save-pass::selection {
+  background-color: transparent;
+  color: inherit;
+  highlight: none; }

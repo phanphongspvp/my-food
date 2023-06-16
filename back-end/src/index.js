@@ -15,6 +15,7 @@ const app = express();
 const routerAPI = require("./router/routerAPI");
 const routerPAGE = require("./router/routerPAGE");
 const db = require("./config/db");
+// const { createJWT, verifyToken } = require("./middleware/JWTAction");
 
 dotenv.config();
 
@@ -28,7 +29,7 @@ app.use(methodOverride("_method"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //Middleware cookie-parser
-app.use(cookieParser());
+app.use(cookieParser("byCookie"));
 
 //Middleware morgan
 app.use(morgan("tiny"));
@@ -36,7 +37,7 @@ app.use(morgan("tiny"));
 //Middleware express-session
 app.use(
   session({
-    name: "username",
+    name: "myCookieUser",
     secret: "key that will sign cookie",
     resave: false,
     saveUninitialized: false,
