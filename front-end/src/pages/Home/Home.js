@@ -30,7 +30,7 @@ function Home() {
     };
 
     fetchDealApi();
-  });
+  }, []);
 
   return (
     <Scrollbars

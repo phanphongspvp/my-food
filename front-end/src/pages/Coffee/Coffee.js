@@ -30,7 +30,7 @@ function Coffee() {
     };
 
     fetchDealApi();
-  });
+  }, []);
 
   return (
     <Scrollbars

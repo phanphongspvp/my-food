@@ -30,7 +30,7 @@ function Noodle() {
     };
 
     fetchDealApi();
-  });
+  }, []);
 
   return (
     <Scrollbars

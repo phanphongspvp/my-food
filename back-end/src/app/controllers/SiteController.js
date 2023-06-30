@@ -1,39 +1,47 @@
-const formidable = require("formidable");
+const multer = require("multer");
+
+const Users = require("../models/Users");
 
 class SiteController {
   home(req, res) {
     if (req.session.user) {
-      const usernameSession = req.session.user?.fullname;
-      res.render("home.hbs", { usernameSession });
+      const userFullNameSession = req.session.user?.fullname;
+      const userAvatarSession = req.session.user?.avatar;
+
+      res.render("home.hbs", { userFullNameSession, userAvatarSession });
     } else {
       res.redirect("/admin/login");
     }
   }
 
-  upload(req, res, next) {
-    const form = new formidable.IncomingForm();
+  upload(req, res) {
+    const storage = multer.diskStorage({
+      destination: (req, file, cb) => {
+        cb(null, "./src/public/images/avatars");
+      },
+      filename: (req, file, cb) => {
+        cb(null, file.originalname);
+      },
+    });
 
-    form.uploadDir = "/images";
-    form.keepExtensions = true;
-    form.maxFileSize = 10 * 1024 * 1024;
-    form.multiples = true;
+    const uploadFile = multer({ storage: storage }).single("file");
 
-    form.parse(req, (err, fields, files) => {
+    const userName = req.session.user?.username;
+
+    uploadFile(req, res, async (err) => {
       if (err) {
-        res.json({
-          result: "failed",
-          data: {},
-          message: `Cannot update images.Error is ${err}`,
-        });
+        return res.status(400).send({ message: "Upload file failed" });
       }
-      var arrayOfFiles = files[""];
-      if (arrayOfFiles.length > 0) {
-        var fileNames = [];
-        arrayOfFiles.forEach((eachFile) => {
-          fileNames.push(eachFile.path);
-        });
-      } else {
-      }
+
+      await Users.updateOne(
+        { username: userName },
+        { $set: { avatar: req.file.filename } },
+        { new: true }
+      ).then(async () => {
+        const updatedUser = await Users.findOne({ username: userName });
+        req.session.user = updatedUser;
+        res.redirect("/");
+      });
     });
   }
 }

@@ -30,7 +30,7 @@ function Porridge() {
     };
 
     fetchDealApi();
-  });
+  }, []);
 
   return (
     <Scrollbars

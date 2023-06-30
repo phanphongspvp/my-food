@@ -30,7 +30,7 @@ function MilkTea() {
     };
 
     fetchDealApi();
-  });
+  }, []);
 
   return (
     <Scrollbars
