@@ -52,6 +52,12 @@ app.use(cookieParser());
 app.use(cors());
 
 //Template engine
+//Middleware đưa dữ liệu từ session và biến context của express-handlebars
+app.use((req, res, next) => {
+  res.locals.session = req.session;
+  next();
+});
+
 app.engine(
   "hbs",
   handlebars.engine({

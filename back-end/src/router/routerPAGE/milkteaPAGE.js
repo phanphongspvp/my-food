@@ -4,22 +4,33 @@ const router = express.Router();
 
 const milkteaController = require("../../app/controllers/MilkTeaController");
 
+const { verifyUser } = require("../../middleware/UserAuthentication");
+
 router.post(
   "/milktea/trash/handle-form-restore",
   milkteaController.handleFormAtcMilkTea
 );
-router.get("/milktea/:id/edit", milkteaController.editMilkTea);
-router.put("/milktea/:id", milkteaController.updateMilkTea);
-router.delete("/milktea/:id", milkteaController.deleteMilkTea);
-router.delete("/milktea/:id/force", milkteaController.deleteForceMilkTea);
-router.get("/milktea/trash", milkteaController.trashMilkTea);
-router.patch("/milktea/:id/restore", milkteaController.restoreMilkTea);
-router.post("/milktea/store", milkteaController.storeMilkTea);
-router.get("/milktea/create", milkteaController.createMilkTea);
+router.get("/milktea/:id/edit", verifyUser, milkteaController.editMilkTea);
+router.put("/milktea/:id", verifyUser, milkteaController.updateMilkTea);
+router.delete("/milktea/:id", verifyUser, milkteaController.deleteMilkTea);
+router.delete(
+  "/milktea/:id/force",
+  verifyUser,
+  milkteaController.deleteForceMilkTea
+);
+router.get("/milktea/trash", verifyUser, milkteaController.trashMilkTea);
+router.patch(
+  "/milktea/:id/restore",
+  verifyUser,
+  milkteaController.restoreMilkTea
+);
+router.post("/milktea/store", verifyUser, milkteaController.storeMilkTea);
+router.get("/milktea/create", verifyUser, milkteaController.createMilkTea);
 router.post(
   "/milktea/handle-form-actions",
+  verifyUser,
   milkteaController.handleFormActionMilkTea
 );
-router.get("/milktea", milkteaController.mainMilkTea);
+router.get("/milktea", verifyUser, milkteaController.mainMilkTea);
 
 module.exports = router;

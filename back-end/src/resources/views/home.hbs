@@ -1,9 +1,156 @@
-<br />
+{{!-- <br />
 <h1>Xin chao ban da dang nhap vao trang chu cua FongFood</h1>
-<img src="images/avatars/{{userAvatarSession}}" src="name" />
+<img src="images/avatars/{{session.user.avatar}}" src="name" />
 <form action="/upload" method="POST" enctype="multipart/form-data">
     
     <input type="file" name="file" />
     <input type="submit" value="upload" />
 
-</form>
+</form> --}}
+		<div class="row">
+			<ol class="breadcrumb">
+				<li><a href="#">
+					<em class="fa fa-home"></em>
+				</a></li>
+				<li class="active">Trang chủ</li>
+			</ol>
+		</div><!--/.row-->
+		
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Trang chủ</h1>
+			</div>
+		</div><!--/.row-->
+		
+		<div class="panel panel-container">
+			<div class="row">
+				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+					<div class="panel panel-teal panel-widget border-right">
+						<div class="row no-padding"><em class="fa fa-xl fa-shopping-cart color-blue"></em>
+							<div class="large">120</div>
+							<div class="text-muted">Đơn hàng mới</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+					<div class="panel panel-blue panel-widget border-right">
+						<div class="row no-padding"><em class="fa fa-xl fa-comments color-orange"></em>
+							<div class="large">52</div>
+							<div class="text-muted">Bình luận</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+					<div class="panel panel-orange panel-widget border-right">
+						<div class="row no-padding"><em class="fa fa-xl fa-users color-teal"></em>
+							<div class="large">24</div>
+							<div class="text-muted">Người dùng mới</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+					<div class="panel panel-red panel-widget ">
+						<div class="row no-padding"><em class="fa fa-xl fa-search color-red"></em>
+							<div class="large">25.2k</div>
+							<div class="text-muted">Lượt xem Page</div>
+						</div>
+					</div>
+				</div>
+			</div><!--/.row-->
+		</div>
+		
+		<div class="row">
+			<div class="col-md-6">
+				<div class="panel panel-default chat">
+					<div class="panel-heading">
+						Thông báo của các admin
+						<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
+					<div class="panel-body">
+						<ul>
+							<li class="left clearfix"><span class="chat-img pull-left">
+								<img src="http://placehold.it/60/30a5ff/fff" alt="User Avatar" class="img-circle" />
+								</span>
+								<div class="chat-body clearfix">
+									<div class="header"><strong class="primary-font">Admin Phan Phong</strong> <small class="text-muted">32 phút trước</small></div>
+									<p>Đơn hàng hôm nay còn tồn kho khá nhiều cần có phương án khắc phục sớm nhất.</p>
+								</div>
+							</li>
+							<li class="right clearfix"><span class="chat-img pull-right">
+								<img src="http://placehold.it/60/dde0e6/5f6468" alt="User Avatar" class="img-circle" />
+								</span>
+								<div class="chat-body clearfix">
+									<div class="header"><strong class="pull-left primary-font">Admin Luna</strong> <small class="text-muted">6 phút trước</small></div>
+									<p>Tôi cần mọi người đẩy mạnh hơn chiến lược marketing hơn nữa.</p>
+								</div>
+							</li>
+							<li class="left clearfix"><span class="chat-img pull-left">
+								<img src="http://placehold.it/60/30a5ff/fff" alt="User Avatar" class="img-circle" />
+								</span>
+								<div class="chat-body clearfix">
+									<div class="header"><strong class="primary-font">Admin Phan Phong</strong> <small class="text-muted">32 giây trước</small></div>
+									<p>Tôi sẽ giải quyết vấn đề này.</p>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="panel-footer">
+						<div class="input-group">
+							<input id="btn-input" type="text" class="form-control input-md" placeholder="Nhập bình luận của bạn..." /><span class="input-group-btn">
+								<button class="btn btn-primary btn-md" id="btn-chat">Gửi</button>
+						</span></div>
+					</div>
+				</div>
+			</div><!--/.col-->
+			
+			
+			<div class="col-md-6">
+				<div class="panel panel-default ">
+					<div class="panel-heading">
+						Lịch trình công việc
+						<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
+					<div class="panel-body timeline-container">
+						<ul class="timeline">
+							<li>
+								<div class="timeline-badge"><em class="glyphicon glyphicon-pushpin"></em></div>
+								<div class="timeline-panel">
+									<div class="timeline-heading">
+										<h4 class="timeline-title">Tôi cần các admin đấy mạnh quảng cáo sản phẩm bên mình</h4>
+									</div>
+									<div class="timeline-body">
+										<p>Sử dụng các tool trong công việc một cách hiệu quả nhất</p>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="timeline-badge primary"><em class="glyphicon glyphicon-link"></em></div>
+								<div class="timeline-panel">
+									<div class="timeline-heading">
+										<h4 class="timeline-title">Đăng ký khảo sát bảo hiểm</h4>
+									</div>
+									<div class="timeline-body">
+										<p>Bắt buộc các admin phải khảo sát</p>
+										<a href="#">https://www.fongfood.com/khaosat/bhtd/</a>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="timeline-badge"><em class="glyphicon glyphicon-camera"></em></div>
+								<div class="timeline-panel">
+									<div class="timeline-heading">
+										<h4 class="timeline-title">Tôi cần các thông tin về các cửa hàng tiện lợi</h4>
+									</div>
+									<div class="timeline-body">
+										<p>Khu vực 336 Phạm Văn Đồng</p>
+										<p>Khu vực  Cổ Nhuế</p>
+										<p>Khu vực 245 Hoàng Quốc Việt </p>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div><!--/.col-->
+			<div class="col-sm-12">
+				<p class="back-link">FongFood nơi bạn đặt niềm tin</p>
+			</div>
+		</div><!--/.row-->

@@ -4,7 +4,9 @@ const router = express.Router();
 
 const siteController = require("../../app/controllers/SiteController");
 
-router.post("/upload", siteController.upload);
-router.get("/", siteController.home);
+const { verifyUser } = require("../../middleware/UserAuthentication");
+
+router.post("/upload", verifyUser, siteController.upload);
+router.get("/", verifyUser, siteController.home);
 
 module.exports = router;

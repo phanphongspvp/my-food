@@ -4,14 +4,9 @@ const Users = require("../models/Users");
 
 class SiteController {
   home(req, res) {
-    if (req.session.user) {
-      const userFullNameSession = req.session.user?.fullname;
-      const userAvatarSession = req.session.user?.avatar;
-
-      res.render("home.hbs", { userFullNameSession, userAvatarSession });
-    } else {
-      res.redirect("/admin/login");
-    }
+    // const userFullNameSession = req.session.user?.fullname;
+    // const userAvatarSession = req.session.user?.avatar;
+    res.render("home.hbs");
   }
 
   upload(req, res) {
