@@ -78,6 +78,9 @@ class AuthController {
             fullname: req.body.fullname,
             username: req.body.username,
             email: req.body.email,
+            phone: req.body.phone,
+            gender: req.body.gender,
+            birthday: req.body.birthday,
             password: hash,
           });
 

@@ -1,0 +1,42 @@
+<div class="row">
+    <ol class="breadcrumb">
+        <li><a href="#">
+            <em class="fa fa-home"></em>
+        </a></li>
+        <li class="active">Thông tin cá nhân</li>
+    </ol>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Thông tin cá nhân</h1>
+
+        <div style="display: flex; justify-content: space-between;">
+            <form action="/" method="POST">
+    
+                <label for="username">Tên đăng nhập</label>
+                <input id="username" value="{{session.user.username}}" />
+    
+                <br />
+    
+                <label for="fullname">Họ và tên</label>
+                <input id="fullname" value="{{session.user.fullname}}" />
+    
+                <br />
+    
+                <label for="email">Email</label>
+                <input id="email" value="{{session.user.email}}" />
+    
+    
+            </form>
+    
+            <div>
+                <img src="images/avatars/{{session.user.avatar}}" src="{{session.user.username}}" width="100px" />
+                <form action="/upload" method="POST" enctype="multipart/form-data">
+                    <input type="file" name="file" />
+                    <input type="submit" value="upload" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
